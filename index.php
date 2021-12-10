@@ -29,7 +29,7 @@ if(!check_login() === true){
 <!-- 
 THEME: Aviato | E-commerce template
 VERSION: 1.0.0
-AUTHOR: Themefisher
+AUTHOR: Just testing to see if it will work
 -->
 
 
