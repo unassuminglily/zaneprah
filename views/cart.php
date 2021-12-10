@@ -30,7 +30,7 @@ function getIPAddress() {
   if(isset($_SESSION['user_id'])){
 	$user = $_SESSION['user_id'];
   }else{
-  header("Location: ../login/login.php");
+  header("Location: ../logins/login.php");
   }
   $result = select_all_cart_products_contoller($user);
 
@@ -72,12 +72,12 @@ function getIPAddress() {
             <div class="product-list">
 			<a class='product-add' href='javascript:history.go(-1)'>Go back to shop</a>
 
-              <form method="post" action="checkout.php">
                 <table class="table">
                   <thead>
                     <tr>
                       <th class=''>Item Name</th>
                       <th class=''>Item Price</th>
+					  <th class=''>Quantity</th>
                       <th class=''>Actions</th>
                     </tr>
                   </thead>
@@ -95,15 +95,26 @@ function getIPAddress() {
 								</div>
 							</td>
 							<td class=''>{$cart['product_price']}</td>
+							<td class=''>
+								<form class='form-group' method='POST' action='../actions/qty_process.php'>
+									<input class='search' class='form-control' value='{$cart['qty']}' name='qty'>
+									<input type='hidden' class='form-control' value='{$cart['product_id']}' name='p_id'>										
+									<button  type='submit' name='update' style='width:24px'>
+									<span class='iconify' data-icon='akar-icons:edit' style='color: #234;' data-width='12'></span>
+									</button>
+								</form>
+							</td>
 
 							<td class=''>
-								<a class='product-remove' href=''>Remove</a>
+								<a class='product-remove' href='../actions/cart_process.php?id={$cart['product_id']}' title='delete' name='name'>Remove</a>
 							</td>
 
 							</tr>
 
 				";
 							}
+						}else{
+							header("Location: empty-cart.php");
 						}
 				?>
 				<tfoot>
@@ -111,6 +122,7 @@ function getIPAddress() {
                       <th class=''></th>
                       <th class=''></th>
                       <th class=''></th>
+					  <th class=''></th>
 					  <th class=''>Total: <?php echo $cart_total['Amount'] ?></th>
 
                     </tr>
@@ -118,7 +130,6 @@ function getIPAddress() {
                   </tbody>
                 </table>
                 <a href="checkout.php" class="btn btn-main pull-right">Checkout</a>
-              </form>
             </div>
           </div>
         </div>
@@ -128,5 +139,5 @@ function getIPAddress() {
 </div>
 
 <?php
-include('../templates/footer.php')
+include('../templates/footer.php');
 ?>

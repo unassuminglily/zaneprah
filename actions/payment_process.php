@@ -16,7 +16,7 @@ CURLOPT_TIMEOUT => 30,
 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 CURLOPT_CUSTOMREQUEST => "GET",
 CURLOPT_HTTPHEADER => array(
-    "Authorization: Bearer sk_live_497a3a223893acf3ff8ecfd4dce1158b2fc9b088",
+    "Authorization: Bearer sk_test_f756fb5a2e909c42e14bc68e48cfc93bee61974b",
     "Cache-Control: no-cache",
 ),
 ));
@@ -35,58 +35,57 @@ if(isset($decodedResponse->data->status) && $decodedResponse->data->status === '
     // get form values
     $email = $_GET['email'];
     $amount = $_GET['amount'];
-    $payment_date = date("Y-m-d");
-    $currency = "GHs";
+    $currency = "GHC";
     $c_id = $_SESSION['user_id'];
-    $order_id = $_SESSION['order_id'];
-    
-    $payment = add_payment_controller($amount, $c_id, $order_id, $currency, $payment_date);
-    $_SESSION['errors'] = $payment;
+    $order_status = "Pending";
+    $order_date = "2021/12/08";
+    $invoice_no = mt_rand(50, 500);
+    // $order_id = $_SESSION['order_id'];
+    // var_dump($order_id);
 
-    // call controller function to insert into database
-    //$result = add_payment_controller();
-    // $result = get_user_order_details_controller($order_id);
+    // $payment = add_payment_controller($amount, $c_id, $order_id, $currency, $payment_date);
+    // var_dump($payment);
 
-    // $_SESSION['service_id'] = $result['service_id'];
-    // $_SESSION['package_id'] = $result['package_id'];
-    // check if insertion was successful
+    // $_SESSION['errors'] = $payment;
+
     
-if($payment){
+// if($payment){
+             $addOrder = add_order_controller($c_id, $invoice_no, $order_date, $order_status);
+             var_dump($addOrder);
+
     // get the most recent order id
-            $lastorder = get_last_order_controller();
-         
-    
-            // call a function that stores an array of the customer's details
-            $products = select_all_cart_products_contoller($c_id);
-         
-         
-            foreach($products as $x){ 	
-                $addOrderDetails = add_order_details_controller($lastorder['last_order'], $x['p_id'], $x['qty']);
-            }
-    
-    
-        
+    if($addOrder){
+        $lastorder = get_last_order_controller();
+
+        // call a function that stores an array of the customer's details
+        $products = select_all_cart_products_contoller($c_id);
+
+        foreach($products as $product){ 	
+            $addOrderDetails = add_order_details_controller($lastorder['last_order'], $product['p_id'], $product['qty']);
         }
-    
-    
+
+
+    }
+         
     
              $amount = total_amount_controller($c_id);
             // call controller function to insert into the payment table
-            $result = add_payment_controller($amount['Amount'], $c_id, $lastorder['last_order'], "GHC", $order_date);
+            $result = add_payment_controller($amount['Amount'], $c_id, $lastorder['last_order'], $currency, $order_date);
     
             if($result) {
-                echo "payment verified successfully and insertion complete";
+                echo "Payment Complete. ";
                 $cart = select_all_cart_products_contoller($c_id);
                 // var_dump($cart);
     
-                foreach ($cart as $x) {
-                    remove_from_cart_controller($x['p_id'], $c_id);
+                foreach ($cart as $c) {
+                    remove_from_cart_controller($c['p_id'], $c_id);
                 }
+                header('location: ../views/confirmation.php');
     
           
     
             }else {
-                echo "insertion failed";
+                echo "Insertion failed, try again";
             }
     
         
@@ -94,7 +93,7 @@ if($payment){
         }else{
         // if verification failed
             echo $response;
-    }
+     }
 
 
 

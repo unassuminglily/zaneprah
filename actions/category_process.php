@@ -20,12 +20,12 @@ if(isset($_POST['addCategory'])){
 if(isset($_GET['id'])){
     $id = $_GET['id'];
 
-    $goaway = delete_one_category_contoller($id);
+    $goaway = delete_one_category_controller($id);
     if($goaway === true){
         header("Location: ../admin/categories.php"); 
       }
       else{
-          echo "deleting failed";
+          echo "Could not delete";
       }
     }
 

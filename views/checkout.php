@@ -73,7 +73,7 @@ $amount = total_amount_controller($_SESSION['user_id']);
     function payWithPaystack(e) {
         e.preventDefault()
     var handler = PaystackPop.setup({
-        key: 'pk_live_bd5356607a881f3a0d6843b75d3172b74b9675cd', 
+        key: 'pk_test_222dc9c5670d8dded97964d074e9e18925530fe8', 
         email: document.getElementById('email_address').value,
         amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
         currency: 'GHS', // Use GHS for Ghana Cedis or USD for US Dollars

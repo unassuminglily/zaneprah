@@ -79,7 +79,7 @@ function select_one_category_controller($id){
 
 }
 
-function update_one_category_contoller($id, $categoryname){
+function update_one_category_controller($id, $categoryname){
     // create an instance of the Product class
     $product_instance = new Product();
     // call the method from the class
@@ -87,7 +87,7 @@ function update_one_category_contoller($id, $categoryname){
 
 }
 
-function delete_one_category_contoller($id){
+function delete_one_category_controller($id){
     // create an instance of the Product class
     $product_instance = new product();
     // call the method from the class

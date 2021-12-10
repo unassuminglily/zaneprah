@@ -1,88 +1,26 @@
 <?php
+
 include('templates/aheader.php');
 // require('../database/core.php');
-include('../controllers/productController.php');
+include_once('../controllers/cartController.php');
+include_once('../controllers/paymentController.php');
+include_once('../controllers/productController.php');
+
 
 $categories = select_all_categories_controller();
+$orders = get_orders_controller();
+$sales = get_sales_controller();
+$customers = active_customers_controller();
+$products = count_product_controller();
+$pendings = pending_orders_controller();
 
 ?>
 
 <body>
 
-<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
-        <div class="nano">
-            <div class="nano-content">
-                <ul>
-                    <div class="logo"><a href="index.php">
-                            <!-- <img src="assets/images/logo.png" alt="" /> --><span>Zaneprah</span></a></div>
-                    <!-- <li class="label">Main</li> -->
-                    <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="index.php"> Website Dashboard</a></li>
-                        </ul>
-                    </li>
+<?php include("templates/sidebar.php");?>
 
-                    <li class="label">Main</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Products <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="products.php">View Products</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Categories <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="categories.php">View Categories</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Orders <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="orders.php">View Orders</a></li>
-                        </ul>
-                    </li>
-                    
-            </div>
-        </div>
-    </div>
-    <!-- /# sidebar -->
-    <div class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="float-left">
-                        <div class="hamburger sidebar-toggle">
-                            <span class="line"></span>
-                            <span class="line"></span>
-                            <span class="line"></span>
-                        </div>
-                    </div>
-               
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">John
-                                    <i class="ti-angle-down f-s-10"></i>
-                                </span>
-                                <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
-                                    <div>
-                                        <ul>
-                                            <li>
-                                                <a href="../logins/logout.php">
-                                                    <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <div class="content-wrap">
@@ -111,55 +49,8 @@ $categories = select_all_categories_controller();
                 </div>
                 <!-- /# row -->
                 <section id="main-content">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Total Sales</div>
-                                        <div class="stat-digit">1,012</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Total Customers</div>
-                                        <div class="stat-digit">961</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Available Products</div>
-                                        <div class="stat-digit">770</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i></div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Referral</div>
-                                        <div class="stat-digit">2,781</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <?php include('templates/dash-items.php');
+?>
                         
 
                     <div class="row">
@@ -280,7 +171,7 @@ $categories = select_all_categories_controller();
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="footer">
-                                <p>2021 © Zaneprah. - <a href="#">example.com</a></p>
+                                <p>2021 © Zaneprah. - <a href="https://zaneprah.com/">zaneprah.com</a></p>
                             </div>
                         </div>
                     </div>

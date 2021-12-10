@@ -3,9 +3,6 @@ require(dirname(__FILE__).'../database/core.php');
 // require(dirname(__FILE__).'../controllers/productController.php');
 // require(dirname(__FILE__).'../controllers/customerController.php');
 
-// $all_products = select_all_products_controller();
-
-
 if(!check_login() === true){
 	$account = '
 						<li class="dropdown">
@@ -106,11 +103,12 @@ AUTHOR: Themefisher
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
+					<!-- 
 					<li class="dropdown cart-nav dropdown-slide">
 						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-android-cart"></i>Cart</a>
 						<div class="dropdown-menu cart-dropdown">
-							<!-- Cart Item -->
+							Cart Item 
 							<div class="media">
 								<a class="pull-left" href="#!">
 									<img class="media-object" src="images/shop/cart/cart-1.jpg" alt="image" />
@@ -124,7 +122,7 @@ AUTHOR: Themefisher
 									<h5><strong>$1200</strong></h5>
 								</div>
 								<a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-							</div><!-- / Cart Item -->
+							</div>/ Cart Item 
 
 							<div class="cart-summary">
 								<span>Total</span>
@@ -136,7 +134,7 @@ AUTHOR: Themefisher
 							</ul>
 						</div>
 
-					</li><!-- / Cart -->
+					</li>/ Cart -->
 
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
@@ -386,16 +384,10 @@ Start Call To Action
 				</ul>
 				<ul class="footer-menu text-uppercase">
 					<li>
-						<a href="contact.html">CONTACT</a>
+						<a href="contact.php">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
-					</li>
-					<li>
-						<a href="pricing.html">Pricing</a>
-					</li>
-					<li>
-						<a href="contact.html">PRIVACY POLICY</a>
+						<a href="shop.php">SHOP</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>

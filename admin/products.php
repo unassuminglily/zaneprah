@@ -1,9 +1,20 @@
 <?php
 include('templates/aheader.php');
 // require('../database/core.php');
-include('../controllers/productController.php');
 
-$products = select_all_products_controller();
+include_once('../controllers/cartController.php');
+include_once('../controllers/paymentController.php');
+include_once('../controllers/productController.php');
+
+
+
+$orders = get_orders_controller();
+$sales = get_sales_controller();
+$customers = active_customers_controller();
+$products = count_product_controller();
+$pendings = pending_orders_controller();
+
+$all_products = select_all_products_controller();
 $categories = select_all_categories_controller();
 $brands = select_all_brands_controller();
 // var_dump($brands);
@@ -12,80 +23,8 @@ $brands = select_all_brands_controller();
 
 <body>
 
-<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
-        <div class="nano">
-            <div class="nano-content">
-                <ul>
-                    <div class="logo"><a href="index.php">
-                            <!-- <img src="assets/images/logo.png" alt="" /> --><span>Zaneprah</span></a></div>
-                    <!-- <li class="label">Main</li> -->
-                    <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="index.php"> Website Dashboard</a></li>
-                        </ul>
-                    </li>
+<?php include("templates/sidebar.php");?>
 
-                    <li class="label">Main</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Products <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="products.php">View Products</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Categories <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="categories.php">View Categories</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Orders <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="orders.php">View Orders</a></li>
-                        </ul>
-                    </li>
-                    
-            </div>
-        </div>
-    </div>
-    <!-- /# sidebar -->
-    <div class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="float-left">
-                        <div class="hamburger sidebar-toggle">
-                            <span class="line"></span>
-                            <span class="line"></span>
-                            <span class="line"></span>
-                        </div>
-                    </div>
-               
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">John
-                                    <i class="ti-angle-down f-s-10"></i>
-                                </span>
-                                <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
-                                    <div>
-                                        <ul>
-                                            <li>
-                                                <a href="../logins/logout.php">
-                                                    <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <div class="content-wrap">
@@ -114,55 +53,8 @@ $brands = select_all_brands_controller();
                 </div>
                 <!-- /# row -->
                 <section id="main-content">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Total Sales</div>
-                                        <div class="stat-digit">1,012</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Total Customers</div>
-                                        <div class="stat-digit">961</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Available Products</div>
-                                        <div class="stat-digit">770</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i></div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Referral</div>
-                                        <div class="stat-digit">2,781</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <?php include('templates/dash-items.php');
+?>
                         
 
                     <div class="row">
@@ -269,40 +161,6 @@ $brands = select_all_brands_controller();
                     </div>
                
                     
-<?php
-// foreach($products as $product){
-//     echo"
-
-                    
-                            
-//                                     <tbody>
-//                                         <tr>
-//                                             <td class='border px-4 py-2'>{$product["product_name"]}</td>
-//                                             <td class='border px-4 py-2'>{$product["product_desc"]}</td>
-//                                             <td class='border px-4 py-2'>{$product["product_category"]}</td>
-                                            
-//                                             <td class='border px-4 py-2'>
-//                                                 <a href='update_service.php?serviceID={$service['service_id']}'class='bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white'>
-//                                                         <i class='fas fa-edit'></i></a>
-//                                                 <a href='../actions/service_process.php?deleteservice={$service['service_id']}' class='bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500'>
-//                                                         <i class='fas fa-trash'></i>
-//                                                 </a>
-//                                             </td>
-//                                         </tr>
-                                        
-//                                     </tbody>
-                                
-                        
-//         ";
-//     }  
-?>    
- 
-<?php
-// foreach($products as $product){
-//     echo"
-
-//     ";
-?> 
 
                     <div class="row">
                     <div class="col-12">
@@ -325,21 +183,21 @@ $brands = select_all_brands_controller();
                                         </thead>
                                         <tbody>
                                         <?php
-                                            foreach($products as $product){
+                                            foreach($all_products as $p){
                                                 echo"
                                                 <tr>
-                                                    <td>{$product['product_id']}</td>
-                                                    <td>{$product['product_title']}</td>
-                                                    <td><img src='../images/products/{$product['product_image']}' height='200' width='200'></td>
-                                                    <td>{$product['product_price']}</td>
-                                                    <td>{$product['product_desc']}</td>
-                                                    <td>{$product['product_keywords']}</td>
-                                                    <td><span><a href='updateproduct.php?id={$product['product_id']}' class='mr-4' data-toggle='tooltip'
+                                                    <td>{$p['product_id']}</td>
+                                                    <td>{$p['product_title']}</td>
+                                                    <td><img src='../images/products/{$p['product_image']}' height='200' width='200'></td>
+                                                    <td>{$p['product_price']}</td>
+                                                    <td>{$p['product_desc']}</td>
+                                                    <td>{$p['product_keywords']}</td>
+                                                    <td><span><a href='updateproduct.php?id={$p['product_id']}' class='mr-4' data-toggle='tooltip'
                                                     data-placement='top' title='Edit'>
                                                     <i class='fa fa-pencil color-muted'></i> 
                                                         </a>
                                                         <a
-                                                    href='../actions/product_process.php?id={$product['product_id']}' data-toggle='tooltip'
+                                                    href='../actions/product_process.php?id={$p['product_id']}' data-toggle='tooltip'
                                                     data-placement='top' title='Delete' name='delete' ><i
                                                         class='fa fa-close color-danger'></i></a></span>
                                                      </td>
@@ -369,7 +227,7 @@ $brands = select_all_brands_controller();
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="footer">
-                                <p>2021 © Zaneprah. - <a href="#">example.com</a></p>
+                                <p>2021 © Zaneprah. - <a href="https://zaneprah.com/">zaneprah.com</a></p>
                             </div>
                         </div>
                     </div>

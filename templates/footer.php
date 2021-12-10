@@ -24,12 +24,6 @@
 					<li>
 						<a href="../views/shop.php">SHOP</a>
 					</li>
-					<li>
-						<a href="../views/pricing.php">Pricing</a>
-					</li>
-					<li>
-						<a href="../views/contact.php">PRIVACY POLICY</a>
-					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
 			</div>
@@ -64,8 +58,9 @@
 
     <!-- Main Js File -->
     <script src="../js/script.js"></script>
-    
-
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+<!-- language -->
+	<script src="../js/locale.js"></script>
 
   </body>
   </html>

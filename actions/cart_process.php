@@ -1,7 +1,7 @@
 <?php
 
 require_once("../controllers/cartController.php");
-require_once('../database/core.php');
+require('../database/core.php');
 
 // session_start();
 // require("../controllers/CartController.php");
@@ -30,13 +30,17 @@ if(isset($_POST['cartAdd'])){
     $product_id = $_POST['product_id'];
     $ip_address = getIPAddress();
 
-    var_dump($product_id);
-    var_dump($ip_address);
-
+    // if(isset($_SESSION['user_id'])){
+    //     $user = $_SESSION['user_id'];
+    //   }else{
+    //   header("Location: ../logins/login.php");
+    //   }
     if(isset($_SESSION['user_id'])){
         $customer_id = $_SESSION['user_id'];
         
-    }
+    }else{
+        header("Location: ../logins/login.php");
+        }
     var_dump($customer_id);
     
     $qty = 1;
@@ -61,47 +65,27 @@ if(isset($_POST['cartAdd'])){
     }
 }
 
-if(isset($_POST['deleteProductID'])){
-    $product_id = $_POST['product_id'];
-    $customer_id = $_SESSION['user_id'];
+if(isset($_GET['id'])){
+    $p_id = $_GET['id'];
+    $c_id = $_SESSION['user_id'];
     
     // if(!isset($customer_id) || $customer_id === NULL || $customer_id === ""){
     //     $_SESSION['errors'] = "You have to log in to update the cart";
     //     header("Location: ../views/cart.php");
     // }
-    $result = remove_from_cart_controller($p_id, $ip_address, $c_id, $qty);
+    $result = remove_from_cart_controller($p_id, $c_id);
 
     if($result === true){
-        $_SESSION['errors'] = "Deleted";
+        $_SESSION['errors'] = "Product Deleted";
         header("Location: ../views/cart.php");
     }
     else{
-        echo "Database error";
+        echo "Database error. Item was not deleted";
         die();
     }
 }
 
-if(isset($_POST['change_qty'])){
-    if(isset($_POST['customer_id'])){
-        $customer_id = $_POST['customer_id'];
-    }
-    else{
-        $customer_id = null;
-    }
 
-
-    $qty = $_POST['qty'];
-    $product_id = $_POST['product_id'];
-    $ip_address = getIPAddress();
-    $result = manage_qty_controller($product_id, $customer_id, $ip_address, $qty);
-    if($result === true){
-        header("Location: ../views/cart.php");
-    }
-    else{
-        echo "Database error";
-        die();
-    }
-}
 
 
 ?>

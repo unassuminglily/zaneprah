@@ -33,7 +33,7 @@ class product extends Connection{
 	}
 
     function count_products(){
-		return $this->fetch("SELECT COUNT (*) FROM products");
+		return $this->fetchOne("SELECT COUNT(*) AS total FROM products");
 
     }
 
@@ -71,10 +71,9 @@ class product extends Connection{
 
     function delete_one_category($id){
 		// return true or false
-		// $this->query("DELETE FROM cart where cat_id = '$id'");
-		// $this->query("DELETE from orders where cat_id = '$id'");
-		$this->query("DELETE FROM product where product_cat = '$id'");
-		return $this->query("delete from category where cat_id = '$id'");
+		
+		$this->query("DELETE FROM products where product_cat = '$id'");
+		return $this->query("delete from categories where cat_id = '$id'");
 		
 	}
 

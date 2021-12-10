@@ -1,42 +1,46 @@
 <?php
-require("../Controllers/cart_controller.php");
-require('../Settings/core.php');
-check_login();
+
+require_once("../controllers/cartController.php");
+require('../database/core.php');
 
 
-if(isset($_POST['updateQty'])){
+function getIPAddress() {  
+    //whether ip is from the share internet  
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+        $ip = $_SERVER['HTTP_CLIENT_IP'];  
+    }  
+    //whether ip is from the proxy  
+    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+    }  
+    //whether ip is from the remote address  
+    else{  
+        $ip = $_SERVER['REMOTE_ADDR'];  
+    }  
+     return $ip;  
+} 
 
-    $p_id = $_POST['p_id'];
-    $c_id = $_SESSION['user_id'];
+
+if(isset($_POST['update'])){
+    // if(isset($_POST['customer_id'])){
+    //     $customer_id = $_POST['customer_id'];
+    // }
+    // else{
+    //     $customer_id = null;
+    // }
+
+
     $qty = $_POST['qty'];
-
-    
-   // find that particular product in the database
-    $existingproduct = select_one_cart_product_controller($c_id, $p_id);
-    var_dump($existingproduct);
-
-
-    if ($existingproduct){
-       
-        //update the quantity by adding the quantity entered in the form to the quantity existing in the database
-        $new_qty =  $qty;
-        // echo $new_qty;
-        $newquantity = update_product_quantity_controller($p_id, $c_id, $new_qty);
-            
-        if($newquantity){
-        echo "sucess";
-        header("Location:../views/cart.php");
-
-        }else{
-        echo "failed";
-        }
-
+    $product_id = $_POST['p_id'];
+    $customer_id = $_SESSION['user_id'];
+    // $ip_address = getIPAddress();
+    $result = update_qty_controller($product_id, $customer_id, $qty);
+    if($result === true){
+        header("Location: ../views/cart.php");
     }
-
+    else{
+        echo "Database error";
+        die();
+    }
 }
-
-
-
-
-
 ?>

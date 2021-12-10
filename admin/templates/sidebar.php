@@ -1,3 +1,4 @@
+
 <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
@@ -16,23 +17,68 @@
                     <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Products <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li><a href="chart-flot.html">View Products</a></li>
+                            <li><a href="products.php">View Products</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Categories <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li><a href="chart-morris.html">View Categories</a></li>
+                            <li><a href="categories.php">View Categories</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Shop Orders <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li><a href="chartjs.html">View Orders</a></li>
+                            <li><a href="orders.php">View Orders</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-power-off"></i> Settings <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="../logins/logout.php">Logout</a></li>
                         </ul>
                     </li>
                     
             </div>
         </div>
     </div>
-    <!-- /# sidebar -->
+</div>
+
+
+<div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-left">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+               
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <span class="user-avatar">Admin
+                                    <i class="ti-angle-down f-s-10"></i>
+                                </span>
+                                
+                                <!-- <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
+                                    <div>
+                                        <ul>
+                                            <li>
+                                                <a href="../logins/logout.php">
+                                                    <i class="ti-power-off"></i>
+                                                    <div>Logout</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

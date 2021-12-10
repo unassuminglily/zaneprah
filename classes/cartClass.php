@@ -27,7 +27,7 @@ class Cart extends Connection {
         return $this->fetchOne("select * from cart where c_id = '$c_id' and  p_id = '$p_id'");
     }
 
-    function update_product_quantity($p_id, $c_id, $qty){
+    function manage_qty($p_id, $c_id, $qty){
         return $this->query("update cart set qty = '$qty' where p_id = '$p_id' and c_id = '$c_id'");
     }
 
@@ -52,9 +52,72 @@ class Cart extends Connection {
         return $this ->fetchOne("SELECT MAX(order_id) as last_order from orders");
     }
 
-    function add_payment ($amount, $c_id, $order_id, $currency, $payment_date){
-        return $this->query("insert into payment(amt, customer_id, order_id, currency, payment_date) values('$amount', '$c_id', '$order_id', '$currency', '$payment_date')");
+    function get_all_orders(){
+        return $this->fetch("select customer.customer_id,
+        customer.first_name,
+        customer.last_name,
+        orderdetails.product_id, 
+        products.product_title, 
+        products.product_price,
+        products.product_image,
+        orders.order_id, 
+        orderdetails.qty, 
+        orders.invoice_no, 
+        orders.order_date,
+        orders.order_status 
+        from orderdetails join products on orderdetails.product_id = products.product_id join orders on orders.order_id = orderdetails.order_id join customer on customer.customer_id = orders.customer_id");
+    }
 
+    function get_order($order_id){
+        return $this->fetchOne("select customer.customer_id,
+        customer.first_name,
+        customer.last_name,
+        orderdetails.product_id, 
+        products.product_title, 
+        products.product_price,
+        products.product_image,
+        orders.order_id, 
+        orderdetails.qty, 
+        orders.invoice_no, 
+        orders.order_date,
+        orders.order_status 
+        from orderdetails join products on orderdetails.product_id = products.product_id join orders on orders.order_id = orderdetails.order_id join customer on customer.customer_id = orders.customer_id
+        where orders.order_id =  '$order_id' ");
+    }
+
+    // function get_order($order_id, $order_status){
+    //     return $this->query("update customer.customer_id,
+    //     customer.first_name,
+    //     customer.last_name,
+    //     orderdetails.product_id, 
+    //     products.product_title, 
+    //     products.product_price,
+    //     products.product_image,
+    //     orders.order_id, 
+    //     orderdetails.qty, 
+    //     orders.invoice_no, 
+    //     orders.order_date,
+    //     orders.order_status 
+    //     from orderdetails join products on orderdetails.product_id = products.product_id join orders on orders.order_id = orderdetails.order_id join customer on customer.customer_id = orders.customer_id
+    //     SET orders.order_status = '$order_status'
+    //     where orders.order_id =  '$order_id' ");
+    // }
+
+    function add_payment ($amount, $c_id, $order_id, $currency, $payment_date){
+        return $this->query("insert into payment(cost, customer_id, order_id, currency, payment_date) values('$amount', '$c_id', '$order_id', '$currency', '$payment_date')");
+
+    }
+
+    function get_sales(){
+        return $this->fetchOne("SELECT SUM(cost) AS sales FROM payment;");
+    }
+
+    function pending_orders(){
+        return $this->fetchOne("SELECT COUNT(*) AS pending FROM orders WHERE order_status='Pending'");
+    }
+
+    function active_customers(){
+        return $this->fetchOne("SELECT SUM(DISTINCT(customer_id)) AS payers FROM orders;");
     }
 
     function guest_qty($ip_add){

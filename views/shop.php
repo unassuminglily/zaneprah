@@ -83,22 +83,20 @@ $categories = select_all_categories_controller();
 												<div class='product-item'>
 												<div class='product-thumb'>
 												<span class='bage'>Sale</span>
-													<img class='img-responsive' src='../images/products/{$product['product_image']}' alt='product-img' width='200px' heigth='200px' />
+													<img class='img-responsive' src='../images/products/{$product['product_image']}' alt='product-img' width='200px' heigth='200px'>
 													<div class='preview-meta'>
 														<ul>
 															<li>
-																<span  data-toggle='modal' data-target='#product-modal'>
 																<a href='product-single.php?id={$product['product_id']}'><i class='tf-ion-ios-search-strong'></i></a>
-																</span>
 															</li>
-															<li>
-																<a href='cart.php'><i class='tf-ion-android-cart'></i></a>
-															</li>
+															
 														</ul>
 													</div>
 												</div>
 												<div class='product-content'>
-													<h4><a href='product-single.php?id={$product['product_id']}> {$product['product_title']}</a></h4>
+													<h4><a href='product-single.php?id={$product['product_id']}'> </a></h4>
+													
+													<p class='price'>{$product['product_title']}</p>
 													<p class='price'>{$product['product_price']}</p>
 												</div>
 											
